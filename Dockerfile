@@ -32,7 +32,7 @@ WORKDIR /opt/CTFd
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libffi8 \
-        libssl3 \
+        libssl3 ssh\
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -43,12 +43,13 @@ RUN useradd \
     --shell /bin/bash \
     -u 1001 \
     ctfd \
-    && mkdir -p /var/log/CTFd /var/uploads \
-    && chown -R 1001:1001 /var/log/CTFd /var/uploads /opt/CTFd \
+    && mkdir -p /var/log/CTFd /var/uploads /home/ctfd/.ssh \
+    && chown -R 1001:1001 /var/log/CTFd /var/uploads /opt/CTFd /home/ctfd \
     && chmod +x /opt/CTFd/docker-entrypoint.sh
 
 COPY --chown=1001:1001 --from=build /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
+
 
 USER 1001
 EXPOSE 8000
