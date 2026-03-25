@@ -1,0 +1,4 @@
+{
+    "name" : "SSO Authentication",
+    "route": "/admin/sso"
+}
