@@ -12,9 +12,9 @@ services:
       - ERROR_LOG=-
       - REVERSE_PROXY=true
     volumes:
-      - /data/CTFd/logs:/var/log/CTFd
-      - /data/CTFd/uploads:/var/uploads
-      - /data:/opt/CTFd:ro
+      - .data/CTFd/logs:/var/log/CTFd
+      - .data/CTFd/uploads:/var/uploads
+      - .:/opt/CTFd:ro
     depends_on:
       - db
     networks:
@@ -24,7 +24,7 @@ services:
     image: nginx:stable
     restart: always
     volumes:
-      - /data/conf/nginx/http.conf:/etc/nginx/nginx.conf
+      - ./conf/nginx/http.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
     depends_on:
@@ -43,7 +43,7 @@ services:
       - MARIADB_DATABASE=${MARIADB_DATABASE}
       - MARIADB_AUTO_UPGRADE=${MARIADB_AUTO_UPGRADE}
     volumes:
-      - /data/mysql:/var/lib/mysql
+      - .data/mysql:/var/lib/mysql
     networks:
         internal:
     # This command is required to set important mariadb defaults
@@ -54,7 +54,7 @@ services:
     restart: always
     command: redis-server --notify-keyspace-events Ex --appendonly yes
     volumes:
-    - /data/redis:/data
+    - .data/redis:/data
     networks:
         internal:
 
