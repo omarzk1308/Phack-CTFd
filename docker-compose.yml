@@ -24,7 +24,7 @@ services:
     image: nginx:stable
     restart: always
     volumes:
-      - ./conf/nginx/http.conf:/etc/nginx/nginx.conf
+      - /data/conf/nginx/http.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
     depends_on:
