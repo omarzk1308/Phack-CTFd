@@ -18,6 +18,7 @@ services:
       - db
     networks:
         internal:
+        default:
 
   nginx:
     image: nginx:stable
